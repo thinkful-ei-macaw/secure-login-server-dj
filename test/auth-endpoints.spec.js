@@ -3,7 +3,7 @@ const app = require('../src/app')
 const helpers = require('./test-helpers')
 const jwt = require ('jsonwebtoken')
 
-describe.only('Auth Endpoints', function() {
+describe('Auth Endpoints', function() {
   let db
 
   const { testUsers } = helpers.makeThingsFixtures()
@@ -25,7 +25,8 @@ describe.only('Auth Endpoints', function() {
 
   describe(`POST /api/auth/login`, () => {
     beforeEach('insert users', () =>
-      helpers.seedUsers(
+    
+    helpers.seedUsers(
         db,
         testUsers,
       )
@@ -62,7 +63,7 @@ it (`responds 400 'invalid user_name or password' when bad user_name`, () =>{
     const userInvalidPass = { user_name: testUser.user_name, password: 'expisty'}
     return supertest(app)
     .post('/api/auth/login')
-    .send(userInvalidUser)
+    .send(userInvalidPass)
     .expect(400, { error: `Incorrect user_name or password`})
 })
 
